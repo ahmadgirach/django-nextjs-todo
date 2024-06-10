@@ -1,4 +1,4 @@
-import ShowTodos from "@/components/ShowTodos";
+import ShowTodos from "@/components/todo/ShowTodos";
 
 export default async function Home() {
   const response = await fetch("http://localhost:8000/todos/", {

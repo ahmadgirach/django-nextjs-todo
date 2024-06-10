@@ -9,10 +9,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Pencil, Plus, Trash } from "lucide-react";
-import CreateEditTodo from "./todo/CreateEditTodo";
-import DeleteTodo from "./todo/DeleteTodo";
+import CreateEditTodo from "./CreateEditTodo";
+import DeleteTodo from "./DeleteTodo";
 
 const ActionsOptions = ({
   todo,
@@ -75,7 +75,7 @@ const ShowTodos = ({ data }: { data: any[] }) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data ? (
+            {data.length ? (
               data.map((record, index) => (
                 <TableRow key={record.id}>
                   <TableCell className="font-medium">{index + 1}</TableCell>
@@ -87,10 +87,13 @@ const ShowTodos = ({ data }: { data: any[] }) => {
                 </TableRow>
               ))
             ) : (
-              <p>No data found</p>
+              <TableRow>
+                <TableCell colSpan={4}>No records found.</TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
+
         <CreateEditTodo
           isEditing={false}
           isDialogOpen={isCreateDialogOpen}
