@@ -130,5 +130,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", ",").split(",")
+origins = os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",")
 
+CORS_ALLOWED_ORIGINS = [
+    origin
+    for origin in origins
+    if origin and (origin.startswith("http") or origin.startswith("https"))
+]

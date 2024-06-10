@@ -77,6 +77,7 @@ const CreateEditTodo = ({
             success();
           }
         }
+        form.reset();
       });
     } catch (error: unknown) {
       setError(error);
