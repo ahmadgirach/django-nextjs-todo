@@ -59,7 +59,6 @@ const CreateEditTodo = ({
               body: JSON.stringify(data),
             }
           );
-          console.log({ response });
           if (!response.ok) {
             setError(response.statusText);
             return;
