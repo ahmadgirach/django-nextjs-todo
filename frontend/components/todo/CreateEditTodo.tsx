@@ -53,9 +53,12 @@ const CreateEditTodo = ({
       startTransition(async () => {
         if (isEditing) {
           const response = await fetch(
-            `http://localhost:8000/todos/edit/${todo.id}`,
+            `http://localhost:8000/todos/${todo.id}`,
             {
               method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify(data),
             }
           );
@@ -66,8 +69,11 @@ const CreateEditTodo = ({
             success();
           }
         } else {
-          const response = await fetch("http://localhost:8000/todos/create", {
+          const response = await fetch("http://localhost:8000/todos", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify(data),
           });
           if (!response.ok) {

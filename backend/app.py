@@ -22,17 +22,17 @@ db.init_app(app)
 
 class ToDo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    title = db.Column(db.String(20), nullable=False)
     description = db.Column(db.String(100), nullable=True)
     is_completed = db.Column(db.Boolean, default=False)
 
     def __str__(self) -> str:
-        return self.name
+        return self.title
 
 
 class ToDoSchema(marsh.Schema):
     class Meta:
-        fields = ("id", "name", "description", "is_completed")
+        fields = ("id", "title", "description", "is_completed")
 
 
 todo_schema = ToDoSchema()
@@ -51,9 +51,9 @@ class TodoResource(Resource):
     def post(self):
         payload = request.json
         todo = ToDo(
-            name=payload["name"],
-            description=payload["description"],
-            is_completed=payload["is_completed"],
+            title=payload.get("title", ""),
+            description=payload.get("description", ""),
+            is_completed=payload.get("is_completed", False),
         )
         db.session.add(todo)
         db.session.commit()
@@ -70,8 +70,8 @@ class TodoIndividualResource(Resource):
 
         payload = request.json
 
-        if "name" in payload:
-            todo.name = payload["name"]
+        if "title" in payload:
+            todo.title = payload["title"]
         if "description" in payload:
             todo.description = payload["description"]
         if "is_completed" in payload:
@@ -93,4 +93,4 @@ api.add_resource(TodoIndividualResource, "/todos/<int:todo_id>")
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

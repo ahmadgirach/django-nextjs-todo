@@ -41,7 +41,7 @@ const DeleteTodo = ({
             onClick={() =>
               startTransition(async () => {
                 const response = await fetch(
-                  `http://localhost:8000/todos/delete/${id}`,
+                  `http://localhost:8000/todos/${id}`,
                   {
                     method: "DELETE",
                   }
