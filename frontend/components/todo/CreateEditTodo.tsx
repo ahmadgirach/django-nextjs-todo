@@ -56,6 +56,9 @@ const CreateEditTodo = ({
             `http://localhost:8000/todos/edit/${todo.id}`,
             {
               method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify(data),
             }
           );
@@ -68,6 +71,9 @@ const CreateEditTodo = ({
         } else {
           const response = await fetch("http://localhost:8000/todos/create", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify(data),
           });
           if (!response.ok) {
